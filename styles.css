@@ -32,16 +32,14 @@ nav button:hover {
     background-color: #45a049;
 }
 
-/* Mobile-specific button color in dark mode */
-@media (max-width: 600px) {
-    body.dark-mode nav button,
-    body.dark-mode button {
-        background-color: #007BFF;
-    }
-    body.dark-mode nav button:hover,
-    body.dark-mode button:hover {
-        background-color: #0056b3;
-    }
+body.dark-mode nav button,
+body.dark-mode button {
+    background-color: #007BFF;
+}
+
+body.dark-mode nav button:hover,
+body.dark-mode button:hover {
+    background-color: #0056b3;
 }
 
 form {

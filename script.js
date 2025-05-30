@@ -23,13 +23,11 @@ let categories = JSON.parse(localStorage.getItem('categories')) || defaultCatego
 localStorage.setItem('categories', JSON.stringify(categories));
 
 // Dark mode toggle
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 const savedTheme = localStorage.getItem('theme') || 'light';
 if (savedTheme === 'dark') body.classList.add('dark-mode');
 
-themeToggle.addEventListener('click', () => {
+document.getElementById('theme-toggle').addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
 });
