@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="auth-section">
+        <h2>Enter Password</h2>
+        <input type="password" id="password-input" placeholder="Password">
+        <button id="submit-password">Submit</button>
+    </div>
+    <div id="app-container" style="display: none;">
+        <nav>
+            <button onclick="showScreen('welcome')">Home</button>
+            <button onclick="showScreen('tracker')">Budget Tracker</button>
+            <button onclick="showScreen('categories')">Budget Categories</button>
+        </nav>
+        <div id="welcome-screen" class="screen">
+            <h1>Welcome, Jacob Beckmann!</h1>
+            <p>Use the navigation above to manage your budget or set monthly category budgets.</p>
+        </div>
+        <div id="tracker-screen" class="screen" style="display: none;">
+            <h1>Budget Tracker</h1>
+            <form id="budget-form">
+                <input type="date" id="date" required>
+                <select id="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                </select>
+                <input type="text" id="description" placeholder="Description" required>
+                <input type="number" id="amount" placeholder="Amount" step="0.01" required>
+                <button type="submit">Add Item</button>
+            </form>
+            <div id="budget-list"></div>
+            <div id="summary"></div>
+            <button id="export-csv">Export to CSV</button>
+        </div>
+        <div id="categories-screen" class="screen" style="display: none;">
+            <h1>Monthly Budget Categories</h1>
+            <form id="category-form">
+                <input type="text" id="new-category" placeholder="Category Name" required>
+                <input type="number" id="category-budget" placeholder="Monthly Budget" step="0.01" required>
+                <button type="submit">Add Category</button>
+            </form>
+            <div id="category-list"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
