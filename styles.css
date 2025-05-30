@@ -73,10 +73,16 @@ select, input, button {
 
 .item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 100px;
+    grid-template-columns: 1fr 1fr 1fr 0.5fr 80px;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+}
+
+.item span:nth-child(3) {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .item span:last-child {
@@ -85,7 +91,7 @@ select, input, button {
 
 .category-item {
     display: grid;
-    grid-template-columns: 2fr 1fr auto;
+    grid-template-columns: 2fr 1fr 1fr auto;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
@@ -110,8 +116,11 @@ select, input, button {
         flex-direction: column;
     }
     .item {
-        grid-template-columns: 1fr 1fr 100px;
+        grid-template-columns: 1fr 1fr 80px;
         font-size: 14px;
+    }
+    .item span:nth-child(3) {
+        display: none;
     }
     .item span:last-child {
         justify-self: end;
@@ -119,6 +128,10 @@ select, input, button {
     .category-item {
         grid-template-columns: 1fr auto;
         font-size: 14px;
+    }
+    .category-item span:nth-child(2),
+    .category-item span:nth-child(3) {
+        display: none;
     }
     .category-item span:last-child {
         justify-self: end;

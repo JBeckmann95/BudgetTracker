@@ -49,6 +49,12 @@
             <form id="category-form">
                 <input type="text" id="new-category" placeholder="Category Name" required>
                 <input type="number" id="category-budget" placeholder="Monthly Budget" step="0.01" required>
+                <select id="category-frequency" required>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Bi-weekly">Bi-weekly</option>
+                    <option value="Monthly" selected>Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
                 <button type="submit">Add Category</button>
             </form>
             <div id="category-list"></div>

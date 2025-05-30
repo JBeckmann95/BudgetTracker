@@ -3,18 +3,18 @@ const CORRECT_PASSWORD = "myBudget123";
 
 // Pre-populated categories
 const defaultCategories = [
-    { name: "Mortgage", budget: 500 },
-    { name: "Light", budget: 100 },
-    { name: "Water", budget: 50 },
-    { name: "Gas", budget: 75 },
-    { name: "Home Security", budget: 50 },
-    { name: "Phone", budget: 80 },
-    { name: "Internet", budget: 60 },
-    { name: "Groceries", budget: 300 },
-    { name: "Insurance", budget: 150 },
-    { name: "Car Payment", budget: 200 },
-    { name: "Subscriptions", budget: 30 },
-    { name: "Miscellaneous", budget: 100 }
+    { name: "Mortgage", budget: 500, frequency: "Monthly" },
+    { name: "Light", budget: 100, frequency: "Monthly" },
+    { name: "Water", budget: 50, frequency: "Monthly" },
+    { name: "Gas", budget: 75, frequency: "Monthly" },
+    { name: "Home Security", budget: 50, frequency: "Monthly" },
+    { name: "Phone", budget: 80, frequency: "Monthly" },
+    { name: "Internet", budget: 60, frequency: "Monthly" },
+    { name: "Groceries", budget: 300, frequency: "Weekly" },
+    { name: "Insurance", budget: 150, frequency: "Monthly" },
+    { name: "Car Payment", budget: 200, frequency: "Monthly" },
+    { name: "Subscriptions", budget: 30, frequency: "Monthly" },
+    { name: "Miscellaneous", budget: 100, frequency: "Monthly" }
 ];
 
 // Initialize data
@@ -36,7 +36,7 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    document.getElementById('theme-toggle').textContent | isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+    document.getElementById('theme-toggle').textContent = isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
     themeColorMeta.content = isDark ? '#333' : '#f4f4f4';
 });
 
@@ -117,7 +117,7 @@ function loadBudgetItems() {
             <span>${item.date}</span>
             <span>${item.category}</span>
             <span>${item.description}</span>
-            <span style="justify-self: end;">$${item.amount.toFixed(2)}</span>
+            <span>$${item.amount.toFixed(2)}</span>
             <span style="justify-self: end;">
                 <button onclick="deleteItem(${index})">Delete</button>
             </span>
@@ -161,12 +161,14 @@ document.getElementById('category-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('new-category').value;
     const budget = parseFloat(document.getElementById('category-budget').value);
+    const frequency = document.getElementById('category-frequency').value;
 
     const existingIndex = categories.findIndex(cat => cat.name === name);
     if (existingIndex !== -1) {
         categories[existingIndex].budget = budget;
+        categories[existingIndex].frequency = frequency;
     } else {
-        categories.push({ name, budget });
+        categories.push({ name, budget, frequency });
     }
     localStorage.setItem('categories', JSON.stringify(categories));
     loadCategoryBudgets();
@@ -183,6 +185,7 @@ function loadCategoryBudgets() {
         catDiv.innerHTML = `
             <span>${category.name}</span>
             <span>$${category.budget.toFixed(2)}</span>
+            <span>${category.frequency}</span>
             <span style="justify-self: end;">
                 <button onclick="editCategory(${index})">Edit</button>
                 <button onclick="deleteCategory(${index})">Delete</button>
@@ -196,10 +199,13 @@ function loadCategoryBudgets() {
 function editCategory(index) {
     const newName = prompt('Enter new category name:', categories[index].name);
     const newBudget = parseFloat(prompt('Enter new monthly budget:', categories[index].budget));
-    if (newName && !isNaN(newBudget)) {
-        categories[index] = { name: newName, budget: newBudget };
+    const newFrequency = prompt('Enter frequency (Weekly, Bi-weekly, Monthly, Yearly):', categories[index].frequency);
+    if (newName && !isNaN(newBudget) && ['Weekly', 'Bi-weekly', 'Monthly', 'Yearly'].includes(newFrequency)) {
+        categories[index] = { name: newName, budget: newBudget, frequency: newFrequency };
         localStorage.setItem('categories', JSON.stringify(categories));
         loadCategoryBudgets();
+    } else {
+        alert('Invalid frequency. Please use Weekly, Bi-weekly, Monthly, or Yearly.');
     }
 }
 
