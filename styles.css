@@ -87,6 +87,10 @@ select, input, button {
     border-bottom: 1px solid #ccc;
 }
 
+.category-item span:last-child {
+    justify-self: end;
+}
+
 .category-item button {
     margin-left: 5px;
 }
@@ -108,6 +112,9 @@ select, input, button {
     .category-item {
         grid-template-columns: 1fr auto;
         font-size: 14px;
+    }
+    .category-item span:last-child {
+        justify-self: end;
     }
     .category-item button {
         padding: 6px;

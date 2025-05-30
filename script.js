@@ -24,8 +24,12 @@ localStorage.setItem('categories', JSON.stringify(categories));
 
 // Dark mode toggle (default to dark)
 const body = document.body;
+const themeColorMeta = document.getElementById('theme-color');
 const savedTheme = localStorage.getItem('theme') || 'dark';
-if (savedTheme === 'dark') body.classList.add('dark-mode');
+if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeColorMeta.content = '#333';
+}
 document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
 
 document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -33,6 +37,7 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     const isDark = body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     document.getElementById('theme-toggle').textContent = isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+    themeColorMeta.content = isDark ? '#333' : '#f4f4f4';
 });
 
 // Password check on load
@@ -173,7 +178,7 @@ function loadCategoryBudgets() {
         catDiv.innerHTML = `
             <span>${category.name}</span>
             <span>$${category.budget.toFixed(2)}</span>
-            <span style="text-align: right;">
+            <span style="justify-self: end;">
                 <button onclick="editCategory(${index})">Edit</button>
                 <button onclick="deleteCategory(${index})">Delete</button>
             </span>
