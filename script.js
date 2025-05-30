@@ -22,14 +22,17 @@ let budgetItems = JSON.parse(localStorage.getItem('budgetItems')) || [];
 let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories;
 localStorage.setItem('categories', JSON.stringify(categories));
 
-// Dark mode toggle
+// Dark mode toggle (default to dark)
 const body = document.body;
-const savedTheme = localStorage.getItem('theme') || 'light';
+const savedTheme = localStorage.getItem('theme') || 'dark';
 if (savedTheme === 'dark') body.classList.add('dark-mode');
+document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
 
 document.getElementById('theme-toggle').addEventListener('click', () => {
     body.classList.toggle('dark-mode');
-    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    const isDark = body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.getElementById('theme-toggle').textContent = isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
 });
 
 // Password check on load
