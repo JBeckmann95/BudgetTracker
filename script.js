@@ -36,7 +36,7 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    document.getElementById('theme-toggle').textContent = isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+    document.getElementById('theme-toggle').textContent | isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
     themeColorMeta.content = isDark ? '#333' : '#f4f4f4';
 });
 
@@ -114,8 +114,13 @@ function loadBudgetItems() {
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('item');
         itemDiv.innerHTML = `
-            ${item.date} | ${item.category} | ${item.description} | $${item.amount.toFixed(2)}
-            <button onclick="deleteItem(${index})">Delete</button>
+            <span>${item.date}</span>
+            <span>${item.category}</span>
+            <span>${item.description}</span>
+            <span style="justify-self: end;">$${item.amount.toFixed(2)}</span>
+            <span style="justify-self: end;">
+                <button onclick="deleteItem(${index})">Delete</button>
+            </span>
         `;
         budgetList.appendChild(itemDiv);
     });
