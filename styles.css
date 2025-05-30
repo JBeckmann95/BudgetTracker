@@ -126,12 +126,9 @@ select, input, button {
         justify-self: end;
     }
     .category-item {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr 0.5fr 0.5fr auto;
         font-size: 14px;
-    }
-    .category-item span:nth-child(2),
-    .category-item span:nth-child(3) {
-        display: none;
+        padding: 5px;
     }
     .category-item span:last-child {
         justify-self: end;
@@ -139,5 +136,6 @@ select, input, button {
     .category-item button {
         padding: 6px;
         border-radius: 4px;
+        font-size: 12px;
     }
 }

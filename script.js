@@ -197,16 +197,91 @@ function loadCategoryBudgets() {
 
 // Edit category
 function editCategory(index) {
-    const newName = prompt('Enter new category name:', categories[index].name);
-    const newBudget = parseFloat(prompt('Enter new monthly budget:', categories[index].budget));
-    const newFrequency = prompt('Enter frequency (Weekly, Bi-weekly, Monthly, Yearly):', categories[index].frequency);
-    if (newName && !isNaN(newBudget) && ['Weekly', 'Bi-weekly', 'Monthly', 'Yearly'].includes(newFrequency)) {
-        categories[index] = { name: newName, budget: newBudget, frequency: newFrequency };
-        localStorage.setItem('categories', JSON.stringify(categories));
-        loadCategoryBudgets();
-    } else {
-        alert('Invalid frequency. Please use Weekly, Bi-weekly, Monthly, or Yearly.');
-    }
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.zIndex = '1000';
+
+    const form = document.createElement('form');
+    form.style.backgroundColor = body.classList.contains('dark-mode') ? '#333' : '#fff';
+    form.style.padding = '20px';
+    form.style.borderRadius = '8px';
+    form.style.display = 'flex';
+    form.style.flexDirection = 'column';
+    form.style.gap = '10px';
+    form.style.color = body.classList.contains('dark-mode') ? '#f4f4f4' : '#333';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.value = categories[index].name;
+    nameInput.placeholder = 'Category Name';
+    nameInput.required = true;
+
+    const budgetInput = document.createElement('input');
+    budgetInput.type = 'number';
+    budgetInput.value = categories[index].budget;
+    budgetInput.placeholder = 'Monthly Budget';
+    budgetInput.step = '0.01';
+    budgetInput.required = true;
+
+    const frequencySelect = document.createElement('select');
+    frequencySelect.required = true;
+    ['Weekly', 'Bi-weekly', 'Monthly', 'Yearly'].forEach(freq => {
+        const option = document.createElement('option');
+        option.value = freq;
+        option.textContent = freq;
+        if (freq === categories[index].frequency) option.selected = true;
+        frequencySelect.appendChild(option);
+    });
+
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.textContent = 'Save';
+    submitButton.style.backgroundColor = '#007BFF';
+    submitButton.style.color = 'white';
+    submitButton.style.border = 'none';
+    submitButton.style.padding = '8px';
+    submitButton.style.borderRadius = '4px';
+
+    const cancelButton = document.createElement('button');
+    cancelButton.type = 'button';
+    cancelButton.textContent = 'Cancel';
+    cancelButton.style.backgroundColor = '#ccc';
+    cancelButton.style.color = '#333';
+    cancelButton.style.border = 'none';
+    cancelButton.style.padding = '8px';
+    cancelButton.style.borderRadius = '4px';
+    cancelButton.onclick = () => document.body.removeChild(modal);
+
+    form.appendChild(nameInput);
+    form.appendChild(budgetInput);
+    form.appendChild(frequencySelect);
+    form.appendChild(submitButton);
+    form.appendChild(cancelButton);
+    modal.appendChild(form);
+    document.body.appendChild(modal);
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        const newName = nameInput.value;
+        const newBudget = parseFloat(budgetInput.value);
+        const newFrequency = frequencySelect.value;
+        if (newName && !isNaN(newBudget) && ['Weekly', 'Bi-weekly', 'Monthly', 'Yearly'].includes(newFrequency)) {
+            categories[index] = { name: newName, budget: newBudget, frequency: newFrequency };
+            localStorage.setItem('categories', JSON.stringify(categories));
+            loadCategoryBudgets();
+            document.body.removeChild(modal);
+        } else {
+            alert('Invalid input. Ensure all fields are filled and frequency is valid.');
+        }
+    };
 }
 
 // Delete category
