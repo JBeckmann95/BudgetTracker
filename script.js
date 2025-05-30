@@ -22,6 +22,18 @@ let budgetItems = JSON.parse(localStorage.getItem('budgetItems')) || [];
 let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories;
 localStorage.setItem('categories', JSON.stringify(categories));
 
+// Dark mode toggle
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') body.classList.add('dark-mode');
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+});
+
 // Password check on load
 document.addEventListener('DOMContentLoaded', () => {
     const authSection = document.getElementById('auth-section');
@@ -151,9 +163,13 @@ function loadCategoryBudgets() {
         const catDiv = document.createElement('div');
         catDiv.classList.add('category-item');
         catDiv.innerHTML = `
-            ${category.name}: $${category.budget.toFixed(2)}
-            <button onclick="editCategory(${index})">Edit</button>
-            <button onclick="deleteCategory(${index})">Delete</button>
+            <span>${category.name}</span>
+            <span>$${category.budget.toFixed(2)}</span>
+            <span></span>
+            <span>
+                <button onclick="editCategory(${index})">Edit</button>
+                <button onclick="deleteCategory(${index})">Delete</button>
+            </span>
         `;
         categoryList.appendChild(catDiv);
     });
