@@ -71,9 +71,17 @@ select, input, button {
     margin-top: 20px;
 }
 
-.item, .category-item {
+.item {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 100px;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.category-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
@@ -93,8 +101,12 @@ select, input, button {
     form {
         flex-direction: column;
     }
-    .item, .category-item {
+    .item {
         grid-template-columns: 1fr 1fr 100px;
+        font-size: 14px;
+    }
+    .category-item {
+        grid-template-columns: 1fr auto;
         font-size: 14px;
     }
     .category-item button {

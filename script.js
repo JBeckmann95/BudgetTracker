@@ -42,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('password-input');
     const submitPassword = document.getElementById('submit-password');
 
+    // Submit on Enter key
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            submitPassword.click();
+        }
+    });
+
     submitPassword.addEventListener('click', () => {
         if (passwordInput.value === CORRECT_PASSWORD) {
             authSection.style.display = 'none';
@@ -166,8 +173,7 @@ function loadCategoryBudgets() {
         catDiv.innerHTML = `
             <span>${category.name}</span>
             <span>$${category.budget.toFixed(2)}</span>
-            <span></span>
-            <span>
+            <span style="text-align: right;">
                 <button onclick="editCategory(${index})">Edit</button>
                 <button onclick="deleteCategory(${index})">Delete</button>
             </span>

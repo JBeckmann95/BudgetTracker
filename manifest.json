@@ -1,0 +1,16 @@
+{
+    "name": "Budget Tracker",
+    "short_name": "Budget",
+    "description": "A simple budget tracking app for Jacob Beckmann",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#333",
+    "theme_color": "#007BFF",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
